@@ -1,34 +1,310 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  color: white;
+  overflow: hidden;
+  user-select: none;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.App {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
 
-.App-link {
-    color: #61dafb;
+/* CarPlay Home Styles */
+.carplay-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.carplay-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  z-index: 100;
+}
+
+.status-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.time {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.signal-strength, .battery {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.signal-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+}
+
+.signal-bar {
+  width: 3px;
+  background: #00ff88;
+  border-radius: 1px;
+}
+
+.signal-bar:nth-child(1) { height: 6px; }
+.signal-bar:nth-child(2) { height: 10px; }
+.signal-bar:nth-child(3) { height: 14px; }
+.signal-bar:nth-child(4) { height: 18px; }
+
+.battery-indicator {
+  width: 24px;
+  height: 12px;
+  border: 1px solid #ffffff;
+  border-radius: 2px;
+  position: relative;
+}
+
+.battery-fill {
+  height: 100%;
+  background: #00ff88;
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.battery-tip {
+  position: absolute;
+  right: -3px;
+  top: 3px;
+  width: 2px;
+  height: 6px;
+  background: #ffffff;
+  border-radius: 0 1px 1px 0;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.app-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.app-icon:hover {
+  transform: translateY(-8px) scale(1.05);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.app-icon-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-icon-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 18px;
+}
+
+.maps-icon { background: linear-gradient(135deg, #007AFF 0%, #005BBB 100%); }
+.music-icon { background: linear-gradient(135deg, #FF2D92 0%, #CC0066 100%); }
+.phone-icon { background: linear-gradient(135deg, #00C851 0%, #00A041 100%); }
+.messages-icon { background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%); }
+.settings-icon { background: linear-gradient(135deg, #6C757D 0%, #495057 100%); }
+
+.app-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+/* Individual App Styles */
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: #007AFF;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(0,122,255,0.1);
+}
+
+.app-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 20px;
+  color: #ffffff;
+}
+
+.app-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coming-soon {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+}
+
+.coming-soon h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.coming-soon p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-grid {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.app-icon:nth-child(1) { animation-delay: 0.1s; }
+.app-icon:nth-child(2) { animation-delay: 0.2s; }
+.app-icon:nth-child(3) { animation-delay: 0.3s; }
+.app-icon:nth-child(4) { animation-delay: 0.4s; }
+.app-icon:nth-child(5) { animation-delay: 0.5s; }
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .app-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+  
+  .app-icon-image {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
 }

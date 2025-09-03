@@ -1,50 +1,24 @@
-import { useEffect } from "react";
+import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import CarPlayHome from "./components/CarPlayHome";
+import MapsApp from "./components/MapsApp";
+import MusicApp from "./components/MusicApp";
+import PhoneApp from "./components/PhoneApp";
+import MessagesApp from "./components/MessagesApp";
+import SettingsApp from "./components/SettingsApp";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<CarPlayHome />} />
+          <Route path="/maps" element={<MapsApp />} />
+          <Route path="/music" element={<MusicApp />} />
+          <Route path="/phone" element={<PhoneApp />} />
+          <Route path="/messages" element={<MessagesApp />} />
+          <Route path="/settings" element={<SettingsApp />} />
         </Routes>
       </BrowserRouter>
     </div>
